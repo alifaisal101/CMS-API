@@ -5,35 +5,46 @@ const logsRouter = require("./logs.admin");
 const senderDoctors = require("./sender-doctors.admin");
 const usersRouter = require("./users.admin");
 
-const authenticationMiddleWare = require("../middlewares/authentication");
-const authorizationMiddleWare = require("../middlewares/authorization");
+const authorizationMiddleWare = require("../../middlewares/authorization");
 
 const Router = express.Router();
 
 Router.use(
   "/factors",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "factors_management";
+    next();
+  },
   authorizationMiddleWare,
 
   factorsRouter
 );
 Router.use(
   "/logs",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "logs_management";
+    next();
+  },
   authorizationMiddleWare,
 
   logsRouter
 );
 Router.use(
   "/sender-doctors",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "sender_doctors_management";
+    next();
+  },
   authorizationMiddleWare,
 
   senderDoctors
 );
 Router.use(
   "/users",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "user_management";
+    next();
+  },
   authorizationMiddleWare,
 
   usersRouter

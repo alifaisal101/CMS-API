@@ -1,0 +1,1 @@
+eval $(cat .env) ./app-linux;

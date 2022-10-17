@@ -12,7 +12,7 @@ const numbProps = {
 
 const userSchema = new mongoose.Schema({
   username: stringProps,
-  type: numbProps,
+  privileges: [stringProps],
   password: stringProps,
 });
 

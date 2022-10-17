@@ -1,7 +1,6 @@
 const express = require("express");
 const { body } = require("express-validator");
 
-const authenticationMiddleWare = require("./../middlewares/authentication");
 const authorizationMiddleWare = require("./../middlewares/authorization");
 
 const paitentController = require("./../controllers/patient");
@@ -10,7 +9,10 @@ const Router = express.Router();
 
 Router.post(
   "/pull-patients",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "view_patients";
+    next();
+  },
   authorizationMiddleWare,
 
   body("page").isDecimal(),
@@ -21,9 +23,12 @@ Router.post(
   paitentController.pullPatients
 );
 
-Router.post(
+Router.delete(
   "/delete-patients",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "delete_patients";
+    next();
+  },
   authorizationMiddleWare,
 
   body("patientsList").custom((patientsList) => {
@@ -35,7 +40,10 @@ Router.post(
 
 Router.put(
   "/register-patient",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "register_patients";
+    next();
+  },
   authorizationMiddleWare,
 
   body("patientData").custom((patientData) => {
@@ -47,7 +55,10 @@ Router.put(
 
 Router.patch(
   "/update-patient",
-  authenticationMiddleWare,
+  (req, res, next) => {
+    res.required_privilege = "update_patients";
+    next();
+  },
   authorizationMiddleWare,
 
   body("patientData").custom((patientData) => {

@@ -86,6 +86,10 @@ const logScheme = new mongoose.Schema({
   },
   dayInWeek: stringProp,
   created_at: dateProp,
+  locked: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Opert", logScheme);

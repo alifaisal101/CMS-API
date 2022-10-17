@@ -1,5 +1,5 @@
 const express = require("express");
-const { body } = require("express-vaildator");
+const { body } = require("express-validator");
 
 const loginController = require("./../controllers/auth");
 

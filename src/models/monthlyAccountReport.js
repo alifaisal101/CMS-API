@@ -116,6 +116,10 @@ const logScheme = new mongoose.Schema({
     required: false,
   },
   created_at: dateProp,
+  locked: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Opert", logScheme);

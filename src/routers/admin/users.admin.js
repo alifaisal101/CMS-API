@@ -10,8 +10,8 @@ const Router = express.Router();
 Router.patch(
   "/change-admin-password",
   authorizationMiddleWare,
-  body("newpassword").length({ min: 1, max: 10 }),
-  body("confirm-newpassword").length({ min: 1, max: 10 }),
+  body("newpassword").isLength({ min: 1, max: 10 }),
+  body("confirm-newpassword").isLength({ min: 1, max: 10 }),
 
   usersController.changeAdminPassword
 );

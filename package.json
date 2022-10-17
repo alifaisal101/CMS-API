@@ -15,9 +15,8 @@
     "nodemon": "^2.0.20",
     "pkg": "^5.8.0"
   },
-
   "scripts": {
-    "start":"nodeman app.js",
+    "start": "eval $(cat .env) nodemon app.js",
     "package": "pkg app.js"
   },
   "author": "Ali Faisal",

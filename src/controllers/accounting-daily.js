@@ -13,3 +13,7 @@ exports.createReport = (req, res, next) => {
 exports.updateReport = (req, res, next) => {
   console.log("update new daily report");
 };
+
+exports.deleteReport = (req, res, next) => {
+  console.log("report deleted");
+};
