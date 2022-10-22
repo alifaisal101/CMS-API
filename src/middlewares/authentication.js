@@ -18,14 +18,18 @@ module.exports = async (req, res, next) => {
   }
 
   let result;
-  try {
-    result = jwt.verify(token, process.env.JWT);
-  } catch (err) {
-    err.httpStatusCode = 500;
-    throw next(err);
-  }
+  result = jwt.verify(token, process.env.JWT, function (err, decoded) {
+    if (!err) {
+      return decoded;
+    } else {
+      err.message = "Invalid Token";
+      return next(err);
+    }
+  });
 
+  console.log(result);
   if (!result) {
+    console.log("dsa");
     return next(Autherr);
   }
 

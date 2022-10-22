@@ -16,7 +16,7 @@ const dateProp = {
 };
 
 const patientSchema = new mongoose.Schema({
-  Numb: {
+  sequence: {
     ...numbProp,
     unique: true,
   },
@@ -26,10 +26,7 @@ const patientSchema = new mongoose.Schema({
     required: true,
   },
   fullname: stringProp,
-  sex: {
-    type: Boolean, //0=male 1=female
-    required: true,
-  },
+  gender: stringProp,
   age: stringProp,
   checks: [
     {
