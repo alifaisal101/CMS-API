@@ -10,7 +10,8 @@ exports.postLogin = (req, res, next) => {
   const validationResult_errors = validationResult(req);
 
   const validation_err = new Error();
-  validation_err.httpStatusCode = 422;
+  validation_err.statusCode = 422;
+  validation_err.fixedMessage = true;
   validation_err.message =
     "Validation Error, Make sure username/password are correct.";
 
@@ -37,7 +38,7 @@ exports.postLogin = (req, res, next) => {
                 userId: _id,
               },
               process.env.JWT,
-              { expiresIn: "1h" }
+              { expiresIn: "1d" }
             );
 
             res.status(200).json({ token: token, _id, privileges });

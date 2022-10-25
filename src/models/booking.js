@@ -5,27 +5,48 @@ const stringProp = {
   required: true,
 };
 
+const numbProp = {
+  type: Number,
+  required: true,
+};
+
 const dateProp = {
   type: Date,
   required: true,
 };
 
 const bookingScheme = new mongoose.Schema({
-  name: stringProp,
+  fullname: stringProp,
   bookingIndex: {
     type: Number,
     required: true,
-    unique: true,
   },
+  gender: stringProp,
+  age: {
+    years: numbProp,
+    months: { required: false, type: Number },
+  },
+  discountPres: numbProp,
+
   desc: {
     type: String,
     required: false,
   },
   cost: { type: Number, required: false },
-  prepaid: { type: Boolean, required: false },
+  prepaid: { type: Boolean, required: true },
   state: stringProp,
-  appointment: dateProp,
+  appointmentDate: dateProp,
   created_at: dateProp,
+  senderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "SenderDoctor",
+    required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Booking", bookingScheme);

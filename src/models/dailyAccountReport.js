@@ -13,7 +13,7 @@ const dateProp = {
   required: true,
 };
 
-const logScheme = new mongoose.Schema({
+const dailyAccountReportSchema = new mongoose.Schema({
   earnings: numbProp,
   purchaces: [
     {
@@ -92,4 +92,4 @@ const logScheme = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Opert", logScheme);
+module.exports = mongoose.model("DailyAccountReport", dailyAccountReportSchema);

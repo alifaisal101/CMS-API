@@ -5,7 +5,7 @@ const User = require("./../models/user");
 module.exports = async (req, res, next) => {
   const Autherr = new Error();
   Autherr.message = "Not Authenticated";
-  Autherr.httpStatusCode = 401;
+  Autherr.statusCode = 401;
 
   const authHeader = req.get("Authorization");
   if (!authHeader) {
@@ -21,23 +21,18 @@ module.exports = async (req, res, next) => {
   result = jwt.verify(token, process.env.JWT, function (err, decoded) {
     if (!err) {
       return decoded;
-    } else {
-      err.message = "Invalid Token";
-      return next(err);
     }
   });
 
-  console.log(result);
   if (!result) {
-    console.log("dsa");
     return next(Autherr);
   }
 
   let userDataFromDb;
   try {
-    userDataFromDb = await User.findById(result.userId).select("-password");
+    userDataFromDb = await User.findById(result.userId, { password: 0 });
   } catch (err) {
-    err.httpStatusCode = 500;
+    err.statusCode = 500;
     throw next(err);
   }
 

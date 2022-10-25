@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
   if (!privileged) {
     const err = new Error();
     err.message = "Unauthorized";
-    err.httpStatusCode = 403;
+    err.statusCode = 403;
     return next(err);
   }
   return next();

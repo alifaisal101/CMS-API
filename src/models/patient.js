@@ -18,7 +18,6 @@ const dateProp = {
 const patientSchema = new mongoose.Schema({
   sequence: {
     ...numbProp,
-    unique: true,
   },
   senderId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +26,12 @@ const patientSchema = new mongoose.Schema({
   },
   fullname: stringProp,
   gender: stringProp,
-  age: stringProp,
+  age: {
+    years: numbProp,
+    months: { required: false, type: Number },
+    weeks: { required: false, type: Number },
+    days: { required: false, type: Number },
+  },
   checks: [
     {
       checkId: {
@@ -58,13 +62,23 @@ const patientSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  selectDiscountPres: numbProp,
+  discountPres: numbProp,
   created_at: dateProp,
   updated_at: dateProp,
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+  bookingInfo: {
+    appointmentDate: {
+      type: Date,
+      required: false,
+    },
+    prepaid: {
+      type: Boolean,
+      required: false,
+    },
   },
 });
 

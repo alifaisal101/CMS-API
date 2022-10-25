@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 
 const logScheme = new mongoose.Schema({
-  action: {
+  actionType: {
+    type: String,
+    required: true,
+  },
+  message: {
     type: String,
     required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: false,
   },
   created_at: {
     type: Date,
@@ -16,4 +20,4 @@ const logScheme = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Opert", logScheme);
+module.exports = mongoose.model("Log", logScheme);

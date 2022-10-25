@@ -13,7 +13,7 @@ const dateProp = {
   required: true,
 };
 
-const logScheme = new mongoose.Schema({
+const monthlyAccountReportSchema = new mongoose.Schema({
   operationEarnings: {
     type: number,
     required: false,
@@ -122,4 +122,7 @@ const logScheme = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Opert", logScheme);
+module.exports = mongoose.model(
+  "MonthlyAccountReport",
+  monthlyAccountReportSchema
+);
