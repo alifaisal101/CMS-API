@@ -11,11 +11,6 @@ const Router = express.Router();
 
 Router.use(
   "/factors",
-  (req, res, next) => {
-    res.required_privilege = "factors_management";
-    next();
-  },
-  authorizationMiddleWare,
 
   factorsRouter
 );
@@ -31,21 +26,11 @@ Router.use(
 );
 Router.use(
   "/sender-doctors",
-  (req, res, next) => {
-    res.required_privilege = "sender_doctors_management";
-    next();
-  },
-  authorizationMiddleWare,
 
   senderDoctors
 );
 Router.use(
   "/users",
-  (req, res, next) => {
-    res.required_privilege = "user_management";
-    next();
-  },
-  authorizationMiddleWare,
 
   usersRouter
 );

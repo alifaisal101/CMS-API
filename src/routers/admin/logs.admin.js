@@ -13,14 +13,6 @@ Router.post(
   logsController.pullLogs
 );
 
-Router.put(
-  "/add-log",
-  body("logData").custom((logData) => {
-    console.log(logData);
-  }),
-  logsController.addLog
-);
-
 Router.post(
   "/clear-logs",
   body("dates").custom((dates) => {

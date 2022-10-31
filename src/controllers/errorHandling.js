@@ -1,4 +1,6 @@
 exports.error = (error, req, res, next) => {
+  console.log(error);
+
   const httpStatusCode = error.statusCode || 500;
   let errorMsg = error.message || "Server Error";
   console.log("ERROR HANDLER!");

@@ -9,16 +9,13 @@ const checkScheme = new mongoose.Schema({
   name: stringProp,
   types: [
     {
-      type: stringProp,
-      number: {
-        type: Number,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
   ],
   created_at: {
     type: Date,
-    required: true,
+    required: false,
   },
 });
 

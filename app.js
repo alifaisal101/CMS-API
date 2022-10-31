@@ -11,8 +11,7 @@ const initalizer = require("./initializer");
 
 const PORT = process.env.PORT || 80;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
-const INITALIZE = process.env.INITALIZE === true || false;
-
+const INITALIZE = process.env.INITALIZE === "true" || false;
 const app = express();
 const errorHandlerListener = express();
 

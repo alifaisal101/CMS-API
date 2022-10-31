@@ -2,7 +2,6 @@ module.exports = (req, res, next) => {
   const required_privilege = res.required_privilege;
 
   if (!res.userData.privileges || !required_privilege) {
-    console.log("YES");
     const err = new Error();
     return next(err);
   }

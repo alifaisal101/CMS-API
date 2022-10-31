@@ -53,6 +53,7 @@ exports.addBooking = (req, res, next) => {
 
       const bookingData = {
         fullname: req.body.fullname,
+        phoneNumb: req.body.phoneNumb,
         bookingIndex: req.body.bookingIndex,
         gender: req.body.gender,
         age: req.body.age,
@@ -188,12 +189,10 @@ exports.updateBookingIndexes = (req, res, next) => {
           {},
           { _id: 1, bookingIndex: 1 }
         );
-        return res
-          .status(201)
-          .json({
-            result: updatedIndexes,
-            message: "Indexes were updated successfully",
-          });
+        return res.status(201).json({
+          result: updatedIndexes,
+          message: "Indexes were updated successfully",
+        });
       });
     })
     .catch((err) => {

@@ -1,7 +1,3 @@
-exports.addLog = (req, res, next) => {
-  console.log("add logs");
-};
-
 exports.pullLogs = (req, res, next) => {
   console.log("pull logs");
 };

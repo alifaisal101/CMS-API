@@ -17,6 +17,7 @@ const dateProp = {
 
 const bookingScheme = new mongoose.Schema({
   fullname: stringProp,
+  phoneNumb: stringProp,
   bookingIndex: {
     type: Number,
     required: true,

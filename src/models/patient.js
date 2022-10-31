@@ -64,7 +64,10 @@ const patientSchema = new mongoose.Schema({
   },
   discountPres: numbProp,
   created_at: dateProp,
-  updated_at: dateProp,
+  updated_at: {
+    type: Date,
+    required: false,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -77,6 +80,10 @@ const patientSchema = new mongoose.Schema({
     },
     prepaid: {
       type: Boolean,
+      required: false,
+    },
+    phoneNumb: {
+      type: String,
       required: false,
     },
   },

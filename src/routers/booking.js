@@ -13,6 +13,9 @@ const Router = express();
 
 const action = "booking";
 
+const err = new Error();
+err.statusCode = 422;
+
 Router.get(
   "/pull-bookings",
   (req, res, next) => {
@@ -36,12 +39,10 @@ Router.put(
   authorizationMiddleWare,
 
   body("fullname").isAlpha("ar-IQ", { ignore: " " }),
+  body("phoneNumb").isLength({ min: 4, max: 32 }),
   body("bookingIndex").isDecimal(),
   body("gender").isAlpha("ar-IQ", { ignore: " " }),
   body("age").custom((ageObj) => {
-    const err = new Error();
-    err.statusCode = 422;
-
     if (dataType(ageObj) !== "object") {
       throw err;
     }
@@ -60,7 +61,6 @@ Router.put(
   body("prepaid").isBoolean().optional({ nullable: true }),
   body("state").isAlpha("ar-IQ", { ignore: " " }),
   //body("appointmentDate").isDate(),
-  body("userId").isMongoId(),
   body("senderId").isMongoId().optional({ nullable: true }),
 
   (req, res, next) => {
@@ -83,22 +83,21 @@ Router.patch(
     .isAlpha("ar-IQ", { ignore: " " })
     .optional({ nullable: true }),
   body("gender").isAlpha("ar-IQ", { ignore: " " }).optional({ nullable: true }),
-  body("age").custom((ageObj) => {
-    const err = new Error();
-    err.statusCode = 422;
+  body("age")
+    .custom((ageObj) => {
+      if (dataType(ageObj) !== "object" && ageObj) {
+        throw err;
+      }
+      if (dataType(ageObj.years) !== "number" && ageObj.years) {
+        throw err;
+      }
+      if (dataType(ageObj.months) !== "number" && ageObj.months) {
+        throw err;
+      }
 
-    if (dataType(ageObj) !== "object" && ageObj) {
-      throw err;
-    }
-    if (dataType(ageObj.years) !== "number" && ageObj.years) {
-      throw err;
-    }
-    if (dataType(ageObj.months) !== "number" && ageObj.months) {
-      throw err;
-    }
-
-    return true;
-  }),
+      return true;
+    })
+    .optional({ nullable: true }),
   body("discountPres").isNumeric().optional({ nullable: true }),
   body("desc").isLength({ min: 1, max: 4000 }).optional({ nullable: true }),
   body("cost").isNumeric().optional({ nullable: true }),
@@ -122,8 +121,6 @@ Router.patch(
   authorizationMiddleWare,
 
   body("bookingIndexes").custom((bookingIndexes) => {
-    const err = new Error();
-    err.statusCode = 422;
     if (dataType(bookingIndexes) !== "array") {
       throw err;
     }
