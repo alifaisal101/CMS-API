@@ -72,7 +72,7 @@ mongoose
         } else {
           console.warn(
             "\x1b[33m%s\x1b[0m",
-            `API has not been initalized. Make sure you're connecting to the correct Database Server. To initalize, Pass "initalize=true" as an environment variable. Exiting with code 2.`
+            `API has not been initalized. Make sure you're connecting to the correct Database Server. To initalize, Pass "INITALIZE="true" as an environment variable. Exiting with code 2.`
           );
           return process.exit(2);
         }
@@ -83,5 +83,10 @@ mongoose
       });
   })
   .catch((err) => {
+    console.log(err);
+    console.warn("\x1b[31m", `   Error connecting to the database.
+    Make sure the "MONGODB_URI" environment variable is set correctly. 
+    (If you're passing "localhost" try passing the local address instead, for ex: "127.0.0.1")
+    Falling back to the error listener.`);
     errorHandlerListener.listen(PORT);
   });
