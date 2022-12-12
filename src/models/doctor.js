@@ -5,7 +5,7 @@ const stringProp = {
   required: true,
 };
 
-const opertScheme = new mongoose.Schema({
+const docterScheme = new mongoose.Schema({
   name: stringProp,
   qualification:stringProp,
   specialization: stringProp,
@@ -15,4 +15,4 @@ const opertScheme = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Opert", opertScheme);
+module.exports = mongoose.model("Docter", docterScheme);

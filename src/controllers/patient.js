@@ -5,7 +5,7 @@ const { idsQuery, startEndValueQuery } = require("./../util/query");
 const Patient = require("./../models/patient");
 const SenderDoctor = require("./../models/SenderDoctor");
 const Check = require("./../models/check");
-const Checker = require("./../models/checker");
+const Checker = require("./../models/doctor");
 const Opert = require("./../models/opert");
 
 exports.pullPatients = async (req, res, next) => {
