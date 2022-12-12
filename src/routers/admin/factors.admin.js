@@ -1,5 +1,9 @@
 const express = require("express");
 const { body } = require("express-validator");
+const ObjectId = require("mongoose").Types.ObjectId;
+
+const dataType = require("../util/data-type");
+const mongoIdsValidator = require("../util/mongoIds-validator")
 
 const authorizationMiddleWare = require("../../middlewares/authorization");
 
@@ -34,8 +38,16 @@ Router.patch(
     next();
   },
   authorizationMiddleWare,
-  body("opertsData").custom((opertsData) => {
-    console.log(opertsData);
+  body("operts").custom((operts) => {
+    if(!operts){throw err;}
+    if(operts.length < 1){throw err}
+    
+    operts.map(opert => {
+        if(ObjectId.isValid(opert._id)){throw err;}
+        if (dataType(opert.name) !== "string"){throw err;}
+    })
+    
+    return true;
   }),
   factorsController.updateOperts
 );
@@ -47,9 +59,18 @@ Router.patch(
     next();
   },
   authorizationMiddleWare,
-  body("doctorsData").custom((doctorsData) => {
-    console.log(doctorsData);
+  body("doctors").custom((doctors) => {
+    if(!doctors){throw err;}
+    if(doctors.length < 1){throw err}
+    
+    doctors.map(doctor => {
+        if(ObjectId.isValid(doctor._id)){throw err;}
+        if (dataType(doctor.name) !== "string"){throw err;}
+    })
+    
+    return true;
   }),
+
   factorsController.updateDoctors
 );
 
@@ -60,8 +81,11 @@ Router.delete(
     next();
   },
   authorizationMiddleWare,
-  body("opertsData").custom((opertsData) => {
-    console.log(opertsData);
+body("opertIds").custom((opertIds) => {
+     if(!mongoIdsValidator(opertIds)){
+         throw err;
+     }
+     return true;
   }),
   factorsController.updateOperts
 );
@@ -73,8 +97,11 @@ Router.delete(
     next();
   },
   authorizationMiddleWare,
-  body("doctorsData").custom((doctorsData) => {
-    console.log(doctorsData);
+  body("doctorIds").custom((doctorIds) => {
+     if(!mongoIdsValidator(doctorIds)){
+         throw err;
+     }
+     return true;
   }),
   factorsController.updateDoctors
 );
