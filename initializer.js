@@ -1,12 +1,9 @@
 const readlineSync = require("readline-sync");
 const bcrypt = require("bcryptjs");
 
-const DEFAULT_CHECKS = require("./init-data/default-checks.json");
-
 const SpecialValue = require("./src/models/specialValue");
 const SenderDoctor = require("./src/models/SenderDoctor");
 const User = require("./src/models/user");
-const Check = require("./src/models/check");
 
 module.exports = async (initalizedResults) => {
   try {
@@ -15,14 +12,9 @@ module.exports = async (initalizedResults) => {
       { password: 0 }
     );
     const opSender = await SenderDoctor.findOne({ name: "op" });
-    const checksFromDB = await Check.find();
 
     if (!opSender) {
       await SenderDoctor.create({ name: "op" });
-    }
-    console.log(checksFromDB);
-    if (checksFromDB.length < 1) {
-      console.log(await Check.create(DEFAULT_CHECKS));
     }
 
     if (adminUser) {
